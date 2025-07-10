@@ -5,11 +5,13 @@
   <title>Erźań čat</title>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: #f9fafb;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Karla", sans-serif;
+      font-size: 17px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -32,6 +34,8 @@
       font-size: 1.5rem;
     }
     #messages {
+      font-family: "Karla", sans-serif;
+      font-size: 17px;
       flex-grow: 1;
       border: 1px solid #e5e7eb;
       border-radius: 8px;
@@ -41,6 +45,8 @@
       background: #f3f4f6;
     }
     .message {
+      font-family: "Karla", sans-serif;
+      font-size: 17px;
       background: #2563eb;
       color: #ffffff;
       padding: 8px 12px;
@@ -51,6 +57,8 @@
       position: relative;
     }
     .nickname {
+      font-family: "Karla", sans-serif;
+      font-size: 17px;
       font-weight: bold;
       display: block;
       margin-bottom: 4px;
@@ -72,6 +80,8 @@
       gap: 10px;
     }
     #messageInput {
+      font-family: "Karla", sans-serif;
+      font-size: 17px;
       flex-grow: 1;
       padding: 10px;
       border: 1px solid #d1d5db;
@@ -80,6 +90,8 @@
       font-size: 1rem;
     }
     button {
+      font-family: "Karla", sans-serif;
+      font-size: 17px;
       background: #2563eb;
       color: #ffffff;
       border: none;
@@ -93,6 +105,8 @@
       background: #1d4ed8;
     }
     #nicknameInput {
+      font-family: "Karla", sans-serif;
+      font-size: 17px;
       padding: 10px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
@@ -105,11 +119,11 @@
 <body>
   <div class="chat-container">
     <h2>Erźań čat</h2>
-    <input id="nicknameInput" type="text" placeholder="Koda lemeť?" />
+    <input id="nicknameInput" type="text" placeholder="Koda lämeť?" />
     <div id="messages"></div>
     <div class="input-group">
-      <input id="messageInput" type="text" placeholder="Śormadt mezejak..." />
-      <button onclick="sendMessage()">Kučoma</button>
+      <input id="messageInput" type="text" placeholder="Śormadt mäzejak..." />
+      <button onclick="sendMessage()">Kučomaś</button>
     </div>
   </div>
 
