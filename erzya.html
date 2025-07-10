@@ -234,8 +234,10 @@
         deleteBtn.className = "delete-btn";
         deleteBtn.textContent = "🗑️";
         deleteBtn.onclick = () => {
-          messagesRef.child(snapshot.key).remove();
-        };
+  if (confirm("Kemestë uli meleť nardams te kučovksonť?")) {
+    messagesRef.child(snapshot.key).remove();
+  }
+};
         div.appendChild(deleteBtn);
       }
 
