@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Small Communicator</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f9fafb;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .chat-container {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    h2 {
+      text-align: center;
+      color: #111827;
+      font-size: 1.5rem;
+    }
+    #messages {
+      flex-grow: 1;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px;
+      overflow-y: auto;
+      max-height: 300px;
+      background: #f3f4f6;
+    }
+    .message {
+      background: #2563eb;
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      word-wrap: break-word;
+      max-width: 90%;
+    }
+    .input-group {
+      display: flex;
+      gap: 10px;
+    }
+    #messageInput {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      outline: none;
+      font-size: 1rem;
+    }
+    button {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 1rem;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h2>Small Communicator</h2>
+    <div id="messages"></div>
+    <div class="input-group">
+      <input id="messageInput" type="text" placeholder="Type a message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyClzC7saSTNgeoWyHl3ffQfp--ZFGt7R30",
+      authDomain: "communicator-a8d02.firebaseapp.com",
+      databaseURL: "https://communicator-a8d02-default-rtdb.firebaseio.com",
+      projectId: "communicator-a8d02",
+      storageBucket: "communicator-a8d02.appspot.com",
+      messagingSenderId: "382328829651",
+      appId: "1:382328829651:web:ea59b038970af7697b0626"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const messagesRef = db.ref("messages");
+
+    function sendMessage() {
+      const msg = document.getElementById("messageInput").value;
+      if (msg.trim()) {
+        messagesRef.push({ text: msg });
+        document.getElementById("messageInput").value = '';
+      }
+    }
+
+    messagesRef.on("child_added", (snapshot) => {
+      const message = snapshot.val().text;
+      const div = document.createElement("div");
+      div.className = "message";
+      div.textContent = message;
+      document.getElementById("messages").appendChild(div);
+      document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+    });
+  </script>
+</body>
+</html>
