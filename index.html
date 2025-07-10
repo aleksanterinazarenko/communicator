@@ -48,6 +48,24 @@
       margin-bottom: 8px;
       word-wrap: break-word;
       max-width: 90%;
+      position: relative;
+    }
+    .nickname {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.85rem;
+      color: #bbdefb;
+    }
+    .delete-btn {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: none;
+      border: none;
+      color: #93c5fd;
+      cursor: pointer;
+      font-size: 0.9rem;
     }
     .input-group {
       display: flex;
@@ -74,11 +92,20 @@
     button:hover {
       background: #1d4ed8;
     }
+    #nicknameInput {
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      outline: none;
+      font-size: 1rem;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
   <div class="chat-container">
     <h2>Small Communicator</h2>
+    <input id="nicknameInput" type="text" placeholder="Enter your nickname..." />
     <div id="messages"></div>
     <div class="input-group">
       <input id="messageInput" type="text" placeholder="Type a message..." />
@@ -101,21 +128,67 @@
     const db = firebase.database();
     const messagesRef = db.ref("messages");
 
+    const userId = localStorage.getItem('userId') || generateUserId();
+    localStorage.setItem('userId', userId);
+
+    const nicknameInput = document.getElementById("nicknameInput");
+    nicknameInput.value = localStorage.getItem('nickname') || '';
+
+    nicknameInput.addEventListener('change', () => {
+      localStorage.setItem('nickname', nicknameInput.value);
+    });
+
+    function generateUserId() {
+      return 'user_' + Math.random().toString(36).substr(2, 9);
+    }
+
     function sendMessage() {
       const msg = document.getElementById("messageInput").value;
+      const nickname = nicknameInput.value.trim() || "Anonymous";
       if (msg.trim()) {
-        messagesRef.push({ text: msg });
+        messagesRef.push({ text: msg, userId: userId, nickname: nickname });
         document.getElementById("messageInput").value = '';
       }
     }
 
+    document.getElementById("messageInput").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
     messagesRef.on("child_added", (snapshot) => {
-      const message = snapshot.val().text;
+      const data = snapshot.val();
       const div = document.createElement("div");
       div.className = "message";
-      div.textContent = message;
+
+      const nicknameSpan = document.createElement("span");
+      nicknameSpan.className = "nickname";
+      nicknameSpan.textContent = data.nickname;
+
+      const messageText = document.createTextNode(data.text);
+      div.appendChild(nicknameSpan);
+      div.appendChild(messageText);
+
+      if (data.userId === userId) {
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-btn";
+        deleteBtn.textContent = "🗑️";
+        deleteBtn.onclick = () => {
+          messagesRef.child(snapshot.key).remove();
+        };
+        div.appendChild(deleteBtn);
+      }
+
+      div.setAttribute('data-key', snapshot.key);
       document.getElementById("messages").appendChild(div);
       document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+    });
+
+    messagesRef.on("child_removed", (snapshot) => {
+      const msgDiv = document.querySelector(`[data-key='${snapshot.key}']`);
+      if (msgDiv) msgDiv.remove();
     });
   </script>
 </body>
