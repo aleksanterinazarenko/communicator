@@ -113,6 +113,9 @@
     </div>
   </div>
 
+  <audio id="sendSound" src="send.mp3" preload="auto"></audio>
+<audio id="receiveSound" src="receive.mp3" preload="auto"></audio>
+
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyClzC7saSTNgeoWyHl3ffQfp--ZFGt7R30",
@@ -149,6 +152,7 @@
         messagesRef.push({ text: msg, userId: userId, nickname: nickname });
         document.getElementById("messageInput").value = '';
       }
+      sendSound.play();
     }
 
     document.getElementById("messageInput").addEventListener("keydown", (e) => {
@@ -160,6 +164,9 @@
 
     messagesRef.on("child_added", (snapshot) => {
       const data = snapshot.val();
+      if (data.userId !== userId) {
+    receiveSound.play();
+  }
       const div = document.createElement("div");
       div.className = "message";
 
