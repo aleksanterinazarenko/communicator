@@ -6,12 +6,12 @@
   <title>Ärźań čat</title>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: #f9fafb;
-      font-family: "Karla", sans-serif;
+      font-family: "Figtree", sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -32,6 +32,7 @@
       text-align: center;
       color: #111827;
       font-size: 1.5rem;
+      font-weight: inherit;
     }
     #messages {
       flex-grow: 1;
@@ -43,8 +44,8 @@
       background: #f3f4f6;
     }
     .message {
-      font-family: "Karla", sans-serif;
-      font-size: 17px;
+      font-family: "Figtree", sans-serif;
+      font-size: 1.1rem;
       line-height: 1.15;
       background: #2563eb;
       color: #ffffff;
@@ -56,11 +57,10 @@
       position: relative;
     }
     .nickname {
-      font-family: "Karla", sans-serif;
-      font-weight: bold;
+      font-family: "Figtree", sans-serif;
       display: block;
       margin-bottom: 4px;
-      font-size: 12px;
+      font-size: 0.8rem;
       color: #bbdefb;
     }
     .delete-btn {
@@ -71,24 +71,24 @@
       border: none;
       color: #93c5fd;
       cursor: pointer;
-      font-size: 17px;
+      font-size: 1.1rem;
     }
     .input-group {
       display: flex;
       gap: 10px;
     }
     #messageInput {
-      font-family: "Karla", sans-serif;
+      font-family: "Figtree", sans-serif;
       flex-grow: 1;
       padding: 10px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
       outline: none;
-      font-size: 17px;
+      font-size: 1.1rem;
     }
     button {
-      font-family: "Karla", sans-serif;
-      font-size: 17px;
+      font-family: "Figtree", sans-serif;
+      font-size: 1.1rem;
       background: #2563eb;
       color: #ffffff;
       border: none;
@@ -96,20 +96,25 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.2s;
-      font-size: 17px;
+      font-size: 1.1rem;
     }
     button:hover {
       background: #1d4ed8;
     }
     #nicknameInput {
-      font-family: "Karla", sans-serif;
+      font-family: "Figtree", sans-serif;
       padding: 10px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
       outline: none;
-      font-size: 17px;
+      font-size: 1.1rem;
       width: 100%;
     }
+
+    .media {
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
 
     @media (max-width: 480px) {
   body {
@@ -147,7 +152,7 @@
 </head>
 <body>
   <div class="chat-container">
-    <h2>Ärźań čat</h2>
+    <h2><img src="Erzya_Flag.svg" class="media" width="30" height="auto" />Ärźań čat</h2>
     <input id="nicknameInput" type="text" placeholder="Koda lämeť?" />
     <div id="messages"></div>
     <div class="input-group">
