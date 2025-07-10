@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Erźań čat</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f9fafb;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .chat-container {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    h2 {
+      text-align: center;
+      color: #111827;
+      font-size: 1.5rem;
+    }
+    #messages {
+      flex-grow: 1;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px;
+      overflow-y: auto;
+      max-height: 300px;
+      background: #f3f4f6;
+    }
+    .message {
+      background: #2563eb;
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      word-wrap: break-word;
+      max-width: 90%;
+      position: relative;
+    }
+    .nickname {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.85rem;
+      color: #bbdefb;
+    }
+    .delete-btn {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: none;
+      border: none;
+      color: #93c5fd;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .input-group {
+      display: flex;
+      gap: 10px;
+    }
+    #messageInput {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      outline: none;
+      font-size: 1rem;
+    }
+    button {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 1rem;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    #nicknameInput {
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      outline: none;
+      font-size: 1rem;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h2>Erźań čat</h2>
+    <input id="nicknameInput" type="text" placeholder="Koda lemeť?" />
+    <div id="messages"></div>
+    <div class="input-group">
+      <input id="messageInput" type="text" placeholder="Śormadt mezejak..." />
+      <button onclick="sendMessage()">Kučoma</button>
+    </div>
+  </div>
+
+  <audio id="sendSound" src="send.mp3" preload="auto"></audio>
+<audio id="receiveSound" src="receive.mp3" preload="auto"></audio>
+
+  <script>
+    const firebaseConfig = {
+  apiKey: "AIzaSyCpOs1A0F1cZwLDnmIJhEbGQWpC37ldPwg",
+  authDomain: "uralic-chat.firebaseapp.com",
+  projectId: "uralic-chat",
+  storageBucket: "uralic-chat.firebasestorage.app",
+  messagingSenderId: "651022382636",
+  appId: "1:651022382636:web:55a4977844994c9c26c389"
+};
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const messagesRef = db.ref("messages");
+
+    const userId = localStorage.getItem('userId') || generateUserId();
+    localStorage.setItem('userId', userId);
+
+    const nicknameInput = document.getElementById("nicknameInput");
+    nicknameInput.value = localStorage.getItem('nickname') || '';
+
+    nicknameInput.addEventListener('change', () => {
+      localStorage.setItem('nickname', nicknameInput.value);
+    });
+
+    function generateUserId() {
+      return 'user_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    function sendMessage() {
+      const msg = document.getElementById("messageInput").value;
+      const nickname = nicknameInput.value.trim() || "Asodaviks";
+      if (msg.trim()) {
+        messagesRef.push({ text: msg, userId: userId, nickname: nickname });
+        document.getElementById("messageInput").value = '';
+      }
+      sendSound.play();
+    }
+
+    document.getElementById("messageInput").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    messagesRef.on("child_added", (snapshot) => {
+      const data = snapshot.val();
+      if (data.userId !== userId) {
+    receiveSound.play();
+  }
+      const div = document.createElement("div");
+      div.className = "message";
+
+      const nicknameSpan = document.createElement("span");
+      nicknameSpan.className = "nickname";
+      nicknameSpan.textContent = data.nickname;
+
+      const messageText = document.createTextNode(data.text);
+      div.appendChild(nicknameSpan);
+      div.appendChild(messageText);
+
+      if (data.userId === userId) {
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-btn";
+        deleteBtn.textContent = "🗑️";
+        deleteBtn.onclick = () => {
+          messagesRef.child(snapshot.key).remove();
+        };
+        div.appendChild(deleteBtn);
+      }
+
+      div.setAttribute('data-key', snapshot.key);
+      document.getElementById("messages").appendChild(div);
+      document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+    });
+
+    messagesRef.on("child_removed", (snapshot) => {
+      const msgDiv = document.querySelector(`[data-key='${snapshot.key}']`);
+      if (msgDiv) msgDiv.remove();
+    });
+  </script>
+</body>
+</html>
