@@ -389,29 +389,29 @@ document.getElementById("messages").appendChild(container);
       if (msgDiv) msgDiv.remove();
     });
 
-    function adjustChatContainerHeight() {
+    function adjustChatLayout() {
   if (window.innerWidth <= 480) {
-    const isKeyboardOpen = window.innerHeight < 500;
-    if (isKeyboardOpen) {
-      document.querySelector('.chat-container').style.height = 'calc(100vh - 50px)';
-    } else {
-      document.querySelector('.chat-container').style.height = '100vh';
-    }
+    document.querySelector('.chat-container').style.height = 'calc(100vh - 80px)';
+    document.querySelector('.input-group').style.position = 'fixed';
+    document.querySelector('.input-group').style.bottom = '0';
+    document.querySelector('.input-group').style.width = '100%';
+    document.querySelector('.input-group').style.zIndex = '10';
+    document.getElementById('messages').style.overflowY = 'auto';
+  } else {
+    document.querySelector('.chat-container').style.height = 'auto';
+    document.querySelector('.input-group').style.position = 'relative';
+    document.querySelector('.input-group').style.bottom = 'auto';
+    document.querySelector('.input-group').style.width = '100%';
+    document.querySelector('.input-group').style.zIndex = 'auto';
+    document.getElementById('messages').style.overflowY = 'scroll';
   }
 }
 
-window.addEventListener('resize', adjustChatContainerHeight);
-adjustChatContainerHeight();
+window.addEventListener('resize', adjustChatLayout);
+adjustChatLayout();
 
 messagesRef.on("child_added", () => {
   if (window.innerWidth <= 480) {
-    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
-  }
-});
-
-document.getElementById("messages").addEventListener("scroll", () => {
-  const messagesContainer = document.getElementById("messages");
-  if (window.innerWidth <= 480 && messagesContainer.scrollHeight - messagesContainer.scrollTop === messagesContainer.clientHeight) {
     document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
   }
 });
