@@ -210,7 +210,7 @@ min-width: 0;
 
     function sendMessage() {
       const msg = document.getElementById("messageInput").value;
-      const nickname = nicknameInput.value.trim() || "Asodaviks śormadś:";
+      const nickname = nicknameInput.value.trim() || "Asodaviks";
       if (msg.trim()) {
         messagesRef.push({ text: msg, userId: userId, nickname: nickname, timestamp: Date.now() });
         document.getElementById("messageInput").value = '';
