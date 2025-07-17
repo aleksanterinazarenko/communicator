@@ -390,29 +390,31 @@ document.getElementById("messages").appendChild(container);
     });
 
     function adjustChatContainerHeight() {
-  const isKeyboardOpen = window.innerHeight < 500;
-  if (isKeyboardOpen) {
-    document.querySelector('.chat-container').style.height = 'calc(100vh - 50px)';
-  } else {
-    document.querySelector('.chat-container').style.height = '100vh';
+  if (window.innerWidth <= 480) {
+    const isKeyboardOpen = window.innerHeight < 500;
+    if (isKeyboardOpen) {
+      document.querySelector('.chat-container').style.height = 'calc(100vh - 50px)';
+    } else {
+      document.querySelector('.chat-container').style.height = '100vh';
+    }
   }
-  document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
 }
 
 window.addEventListener('resize', adjustChatContainerHeight);
 adjustChatContainerHeight();
 
 messagesRef.on("child_added", () => {
-  document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
-});
-
-document.getElementById("messages").addEventListener("scroll", () => {
-  const messagesContainer = document.getElementById("messages");
-  if (messagesContainer.scrollHeight - messagesContainer.scrollTop === messagesContainer.clientHeight) {
+  if (window.innerWidth <= 480) {
     document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
   }
 });
 
+document.getElementById("messages").addEventListener("scroll", () => {
+  const messagesContainer = document.getElementById("messages");
+  if (window.innerWidth <= 480 && messagesContainer.scrollHeight - messagesContainer.scrollTop === messagesContainer.clientHeight) {
+    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+  }
+});
   </script>
 </body>
 </html>
