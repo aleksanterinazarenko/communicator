@@ -9,20 +9,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #f0f2f5;
-      font-family: "Fira Sans", sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+      body {
+  background: #f0f2f5;
+  font-family: "Fira Sans", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
     .chat-container {
       background: #ffffff;
       border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 400px;
+      min-height: 80%;
       padding: 20px;
       display: flex;
       flex-direction: column;
@@ -40,7 +47,6 @@
       border-radius: 8px;
       padding: 10px;
       overflow-y: auto;
-      max-height: 300px;
       background: #f8fafc;
     }
     .message {
@@ -183,19 +189,14 @@ padding: 10px;
     padding: 0;
     justify-content: flex-start;
     align-items: stretch;
-    height: 100vh; /* 100% height of the viewport */
+    height: 100vh;
     margin: 0;
   }
 
   .chat-container {
     padding: 15px;
     gap: 12px;
-    height: 100vh; /* Full viewport height */
-    width: 100%;
-    border-radius: 0;
-    box-shadow: none;
-    display: flex;
-    flex-direction: column; /* Stack children vertically */
+    height: 100vh;
   }
 
   h2 {
@@ -204,10 +205,9 @@ padding: 10px;
 
   #messages {
     padding: 8px;
-    flex-grow: 1; /* Ensures messages container grows */
+    height: auto;
+    flex-grow: 1;
     overflow-y: auto;
-    max-height: none; /* Remove max-height constraint */
-    height: auto; /* Allow messages to fill available space */
   }
 
   .message {
@@ -235,7 +235,7 @@ padding: 10px;
   .input-group {
     display: flex;
     gap: 10px;
-    margin-top: auto; /* Ensures input group is at the bottom */
+    margin-top: auto;
   }
 
   .room-header {
@@ -250,7 +250,6 @@ padding: 10px;
     background-color: #ffffff;
   }
 }
-
   </style>
 </head>
 <body>
