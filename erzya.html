@@ -326,7 +326,7 @@ div.appendChild(timeInfo);
         deleteBtn.className = "delete-btn";
         deleteBtn.textContent = "🗑️";
         deleteBtn.onclick = () => {
-  if (confirm("Kemestë uli meleť nardams te kučovksonť?")) {
+  if (confirm("Kemestë toń uli meleť nardams te kučovksonť?")) {
     messagesRef.child(snapshot.key).remove();
   }
 };
