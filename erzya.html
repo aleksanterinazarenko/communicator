@@ -191,22 +191,16 @@ padding: 10px;
     align-items: stretch;
     height: 100vh;
     margin: 0;
-    display: flex;
-    flex-direction: column;
   }
 
   .chat-container {
     padding: 15px;
     gap: 12px;
-    height: 100%;  /* Ensure it takes full height */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* Push content to the bottom */
+    height: 100vh;
   }
 
   h2 {
     font-size: 1.2rem;
-    margin-bottom: 10px; /* Make space above messages */
   }
 
   #messages {
@@ -214,7 +208,6 @@ padding: 10px;
     height: auto;
     flex-grow: 1;
     overflow-y: auto;
-    margin-bottom: 10px; /* Ensure space for input field */
   }
 
   .message {
@@ -242,8 +235,7 @@ padding: 10px;
   .input-group {
     display: flex;
     gap: 10px;
-    margin-top: auto;  /* Ensure input stays at the bottom */
-    width: 100%;
+    margin-top: auto;
   }
 
   .room-header {
@@ -396,6 +388,31 @@ document.getElementById("messages").appendChild(container);
       const msgDiv = document.querySelector(`[data-key='${snapshot.key}']`);
       if (msgDiv) msgDiv.remove();
     });
+
+    function adjustChatContainerHeight() {
+  const isKeyboardOpen = window.innerHeight < 500;
+  if (isKeyboardOpen) {
+    document.querySelector('.chat-container').style.height = 'calc(100vh - 50px)';
+  } else {
+    document.querySelector('.chat-container').style.height = '100vh';
+  }
+  document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+}
+
+window.addEventListener('resize', adjustChatContainerHeight);
+adjustChatContainerHeight();
+
+messagesRef.on("child_added", () => {
+  document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+});
+
+document.getElementById("messages").addEventListener("scroll", () => {
+  const messagesContainer = document.getElementById("messages");
+  if (messagesContainer.scrollHeight - messagesContainer.scrollTop === messagesContainer.clientHeight) {
+    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+  }
+});
+
   </script>
 </body>
 </html>
