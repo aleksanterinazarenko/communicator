@@ -123,14 +123,18 @@ margin-left: 0;
 padding: 10px;
 }
     #messageInput {
-      font-family: "Fira Sans", sans-serif;
-      flex-grow: 1;
-      padding: 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      outline: none;
-      font-size: 1rem;
-    }
+  font-family: "Fira Sans", sans-serif;
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 1rem;
+  resize: none;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
     button {
       font-family: "Fira Sans", sans-serif;
       font-size: 1rem;
@@ -275,7 +279,7 @@ html, body {
     <input id="nicknameInput" type="text" placeholder="Koda lämeť / niknëjmeť?" />
     <div id="messages"></div>
     <div class="input-group">
-      <input id="messageInput" type="text" placeholder="Śormadt mäzejak..." />
+      <textarea id="messageInput" placeholder="Śormadt mäzejak..."></textarea>
       <button onclick="sendMessage()">Kučoma</button>
     </div>
   </div>
