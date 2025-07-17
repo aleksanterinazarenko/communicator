@@ -6,12 +6,12 @@
   <title>Ärźań čat</title>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Recursive:wght@300..1000&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: #f9fafb;
-      font-family: "Figtree", sans-serif;
+      font-family: "Recursive", sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -44,8 +44,8 @@
       background: #f3f4f6;
     }
     .message {
-      font-family: "Figtree", sans-serif;
-      font-size: 1.1rem;
+      font-family: "Recursive", sans-serif;
+      font-size: 1rem;
       line-height: 1.15;
       background: #2563eb;
       color: #ffffff;
@@ -53,26 +53,37 @@
       border-radius: 8px;
       margin-bottom: 8px;
       word-wrap: break-word;
+      display: inline-block;
       max-width: 90%;
       position: relative;
+      padding-right: 28px;
     }
     .nickname {
-      font-family: "Figtree", sans-serif;
+      font-family: "Recursive", sans-serif;
       display: block;
       margin-bottom: 4px;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       color: #bbdefb;
     }
     .delete-btn {
-      position: absolute;
-      top: 6px;
-      right: 8px;
-      background: none;
-      border: none;
-      color: #93c5fd;
-      cursor: pointer;
-      font-size: 1.1rem;
-    }
+  position: absolute;
+  top: 4px;
+  right: -30px;
+  background: none !important;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  outline: none;
+}
+
+.delete-btn:hover,
+.delete-btn:focus {
+  background: none !important;
+  outline: none;
+  box-shadow: none;
+}
     .input-group {
       display: flex;
       gap: 10px;
@@ -84,17 +95,17 @@ margin-left: 0;
 padding: 10px;
 }
     #messageInput {
-      font-family: "Figtree", sans-serif;
+      font-family: "Recursive", sans-serif;
       flex-grow: 1;
       padding: 10px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
       outline: none;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
     button {
-      font-family: "Figtree", sans-serif;
-      font-size: 1.1rem;
+      font-family: "Recursive", sans-serif;
+      font-size: 1rem;
       background: #2563eb;
       color: #ffffff;
       border: none;
@@ -107,12 +118,12 @@ padding: 10px;
       background: #1d4ed8;
     }
     #nicknameInput {
-      font-family: "Figtree", sans-serif;
+      font-family: "Recursive", sans-serif;
       padding: 10px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
       outline: none;
-      font-size: 1.1rem;
+      font-size: 1rem;
       width: 100%;
     }
 
@@ -131,7 +142,7 @@ padding: 10px;
     gap: 12px;
   }
   h2 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   #messages {
     max-height: 50vh;
@@ -143,7 +154,7 @@ padding: 10px;
     border-radius: 6px;
   }
   .nickname {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
   #messageInput,
   #nicknameInput {
@@ -202,7 +213,7 @@ min-width: 0;
       const msg = document.getElementById("messageInput").value;
       const nickname = nicknameInput.value.trim() || "Asodaviks";
       if (msg.trim()) {
-        messagesRef.push({ text: msg, userId: userId, nickname: nickname });
+        messagesRef.push({ text: msg, userId: userId, nickname: nickname, timestamp: Date.now() });
         document.getElementById("messageInput").value = '';
       }
       sendSound.play();
@@ -220,16 +231,49 @@ min-width: 0;
       if (data.userId !== userId) {
     receiveSound.play();
   }
-      const div = document.createElement("div");
-      div.className = "message";
+      const container = document.createElement("div");
+container.style.position = "relative";
+
+const div = document.createElement("div");
+div.className = "message";
 
       const nicknameSpan = document.createElement("span");
       nicknameSpan.className = "nickname";
       nicknameSpan.textContent = data.nickname;
 
       const messageText = document.createTextNode(data.text);
-      div.appendChild(nicknameSpan);
-      div.appendChild(messageText);
+div.appendChild(nicknameSpan);
+div.appendChild(messageText);
+
+const timeInfo = document.createElement("div");
+const date = new Date(data.timestamp || Date.now());
+
+const erzyanMonths = [
+  "jakšamkovoń",
+  "davolkovoń",
+  "ejźurkovoń",
+  "čadïkovoń",
+  "panžikovoń",
+  "aštemkovoń",
+  "meďkovoń",
+  "umaŕkovoń",
+  "taštamkovoń",
+  "ožokovoń",
+  "sundeŕkovoń",
+  "acamkovoń"
+];
+
+const year = date.getFullYear();
+const month = erzyanMonths[date.getMonth()];
+const day = date.getDate();
+const hours = String(date.getHours()).padStart(2, '0');
+const minutes = String(date.getMinutes()).padStart(2, '0');
+
+timeInfo.textContent = `${year} ijeń ${month} ${day}-ce či ${hours}.${minutes}`;
+timeInfo.style.fontSize = "0.7rem";
+timeInfo.style.color = "#cbd5e1";
+timeInfo.style.marginTop = "4px";
+div.appendChild(timeInfo);
 
       if (data.userId === userId) {
         const deleteBtn = document.createElement("button");
@@ -243,8 +287,9 @@ min-width: 0;
         div.appendChild(deleteBtn);
       }
 
-      div.setAttribute('data-key', snapshot.key);
-      document.getElementById("messages").appendChild(div);
+      container.setAttribute('data-key', snapshot.key);
+      container.appendChild(div);
+document.getElementById("messages").appendChild(container);
       document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
     });
 
