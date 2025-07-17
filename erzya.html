@@ -6,12 +6,12 @@
   <title>Ärźań čat</title>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Recursive:wght@300..1000&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: #f9fafb;
-      font-family: "Recursive", sans-serif;
+      font-family: 'Inter', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -31,7 +31,7 @@
     h2 {
       text-align: center;
       color: #111827;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: inherit;
     }
     #messages {
@@ -44,8 +44,8 @@
       background: #f3f4f6;
     }
     .message {
-      font-family: "Recursive", sans-serif;
-      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
       line-height: 1.15;
       background: #2563eb;
       color: #ffffff;
@@ -58,10 +58,10 @@
       position: relative;
     }
     .nickname {
-      font-family: "Recursive", sans-serif;
+      font-family: 'Inter', sans-serif;
       display: block;
       margin-bottom: 4px;
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       color: #bbdefb;
     }
     .delete-btn {
@@ -72,7 +72,7 @@
   border: none;
   color: #64748b;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.9rem;
   padding: 0;
   outline: none;
 }
@@ -94,17 +94,17 @@ margin-left: 0;
 padding: 10px;
 }
     #messageInput {
-      font-family: "Recursive", sans-serif;
+      font-family: 'Inter', sans-serif;
       flex-grow: 1;
       padding: 10px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
       outline: none;
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
     button {
-      font-family: "Recursive", sans-serif;
-      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
       background: #2563eb;
       color: #ffffff;
       border: none;
@@ -117,12 +117,12 @@ padding: 10px;
       background: #1d4ed8;
     }
     #nicknameInput {
-      font-family: "Recursive", sans-serif;
+      font-family: 'Inter', sans-serif;
       padding: 10px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
       outline: none;
-      font-size: 1rem;
+      font-size: 0.9rem;
       width: 100%;
     }
 
@@ -153,7 +153,7 @@ padding: 10px;
     border-radius: 6px;
   }
   .nickname {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
   #messageInput,
   #nicknameInput {
@@ -269,7 +269,7 @@ const hours = String(date.getHours()).padStart(2, '0');
 const minutes = String(date.getMinutes()).padStart(2, '0');
 
 timeInfo.textContent = `${year} ijeń ${month} ${day}-ce či ${hours}.${minutes}`;
-timeInfo.style.fontSize = "0.7rem";
+timeInfo.style.fontSize = "0.6rem";
 timeInfo.style.color = "#cbd5e1";
 timeInfo.style.marginTop = "4px";
 div.appendChild(timeInfo);
