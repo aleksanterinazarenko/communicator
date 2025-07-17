@@ -196,9 +196,7 @@ padding: 10px;
   .chat-container {
     padding: 15px;
     gap: 12px;
-    height: calc(100vh - 40px);
-    display: flex;
-    flex-direction: column;
+    height: 100vh;
   }
 
   h2 {
@@ -206,11 +204,10 @@ padding: 10px;
   }
 
   #messages {
-    flex-grow: 1;
     padding: 8px;
-    height: calc(100vh - 160px);
+    height: auto;
+    flex-grow: 1;
     overflow-y: auto;
-    flex-shrink: 0;
   }
 
   .message {
