@@ -388,33 +388,6 @@ document.getElementById("messages").appendChild(container);
       const msgDiv = document.querySelector(`[data-key='${snapshot.key}']`);
       if (msgDiv) msgDiv.remove();
     });
-
-    function adjustChatLayout() {
-  if (window.innerWidth <= 480) {
-    document.querySelector('.chat-container').style.height = 'calc(100vh - 80px)';
-    document.querySelector('.input-group').style.position = 'fixed';
-    document.querySelector('.input-group').style.bottom = '0';
-    document.querySelector('.input-group').style.width = '100%';
-    document.querySelector('.input-group').style.zIndex = '10';
-    document.getElementById('messages').style.overflowY = 'auto';
-  } else {
-    document.querySelector('.chat-container').style.height = 'auto';
-    document.querySelector('.input-group').style.position = 'relative';
-    document.querySelector('.input-group').style.bottom = 'auto';
-    document.querySelector('.input-group').style.width = '100%';
-    document.querySelector('.input-group').style.zIndex = 'auto';
-    document.getElementById('messages').style.overflowY = 'scroll';
-  }
-}
-
-window.addEventListener('resize', adjustChatLayout);
-adjustChatLayout();
-
-messagesRef.on("child_added", () => {
-  if (window.innerWidth <= 480) {
-    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
-  }
-});
   </script>
 </body>
 </html>
