@@ -179,42 +179,54 @@ padding: 10px;
 }
 
     @media (max-width: 480px) {
-    body {
+  body {
     padding: 0;
     justify-content: flex-start;
     align-items: stretch;
-    height: 80vh;
+    height: 100vh; /* 100% height of the viewport */
     margin: 0;
   }
 
   .chat-container {
     padding: 15px;
     gap: 12px;
-    height: 100vh;
+    height: 100vh; /* Full viewport height */
     width: 100%;
     border-radius: 0;
     box-shadow: none;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
   }
+
   h2 {
     font-size: 1.2rem;
   }
+
   #messages {
     padding: 8px;
+    flex-grow: 1; /* Ensures messages container grows */
+    overflow-y: auto;
+    max-height: none; /* Remove max-height constraint */
+    height: auto; /* Allow messages to fill available space */
   }
+
   .message {
     font-size: 1rem;
     padding: 8px 10px;
     border-radius: 6px;
   }
+
   .nickname {
     font-size: 0.7rem;
   }
+
   #messageInput,
   #nicknameInput {
     font-size: 1rem;
     padding: 8px;
-min-width: 0;
+    min-width: 0;
   }
+
   button {
     padding: 10px 12px;
     font-size: 1rem;
@@ -223,14 +235,14 @@ min-width: 0;
   .input-group {
     display: flex;
     gap: 10px;
-    margin-top: auto;
+    margin-top: auto; /* Ensures input group is at the bottom */
   }
 
   .room-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
   .room-header select {
     font-size: 1rem;
@@ -238,6 +250,7 @@ min-width: 0;
     background-color: #ffffff;
   }
 }
+
   </style>
 </head>
 <body>
