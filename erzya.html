@@ -1,33 +1,42 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ärźań čat</title>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-      body {
-  background: #f0f2f5;
-  font-family: "Sen", sans-serif;
-  font-optical-sizing: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-}
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #f0f2f5;
+      font-family: "PT Sans", sans-serif;
+      font-optical-sizing: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100%;
+    }
+
     .chat-container {
       background: #ffffff;
       border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 400px;
       min-height: 85%;
@@ -36,12 +45,14 @@ html, body {
       flex-direction: column;
       gap: 15px;
     }
+
     h2 {
       text-align: center;
       color: #111827;
       font-size: 1.2rem;
       font-weight: inherit;
     }
+
     #messages {
       flex-grow: 1;
       border: 1px solid #d1d5db;
@@ -50,8 +61,9 @@ html, body {
       overflow-y: auto;
       background: #f8fafc;
     }
+
     .message {
-      font-family: "Sen", sans-serif;
+      font-family: "PT Sans", sans-serif;
       font-size: 1rem;
       line-height: auto;
       background: #2563eb;
@@ -67,81 +79,86 @@ html, body {
       position: relative;
     }
 
-[data-key] .message:not(:has(.delete-btn)) {
-  background: #e5e7eb;
-  color: #1f2937;
-}
+    [data-key] .message:not(:has(.delete-btn)) {
+      background: #e5e7eb;
+      color: #1f2937;
+    }
 
     .nickname {
-      font-family: "Sen", sans-serif;
+      font-family: "PT Sans", sans-serif;
       display: block;
       margin-bottom: 5px;
       font-size: 0.75rem;
       color: #e3f2fd;
     }
 
-[data-key] .message:not(:has(.delete-btn)) .nickname {
-  color: #64748b;
-}
+    [data-key] .message:not(:has(.delete-btn)) .nickname {
+      color: #64748b;
+    }
 
-.timestamp {
-  font-size: 0.75rem;
-  color: #e3f2fd;
-  margin-top: 5px;
-}
+    .timestamp {
+      font-size: 0.75rem;
+      color: #e3f2fd;
+      margin-top: 5px;
+    }
 
-[data-key] .message:not(:has(.delete-btn)) .timestamp {
-  color: #64748b;
-}
+    [data-key] .message:not(:has(.delete-btn)) .timestamp {
+      color: #64748b;
+    }
 
     .delete-btn {
-  position: absolute;
-  top: 4px;
-  right: -30px;
-  background: none !important;
-  border: none;
-  color: #64748b;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0;
-  outline: none;
-}
+      position: absolute;
+      top: 4px;
+      right: -30px;
+      background: none !important;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0;
+      outline: none;
+    }
 
-.delete-btn:hover,
-.delete-btn:focus {
-  background: none !important;
-  outline: none;
-  box-shadow: none;
-}
+    .delete-btn:hover,
+    .delete-btn:focus {
+      background: none !important;
+      outline: none;
+      box-shadow: none;
+    }
+
     .input-group {
       display: flex;
       gap: 10px;
     }
-.input-group button {
-margin-left: 0;
-}
-#nicknameInput {
-padding: 10px;
-}
-#messageInput {
-  font-family: "Sen", sans-serif;
-  flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  outline: none;
-  font-size: 1rem;
-  resize: none;
-  overflow-y: auto;
-  white-space: pre-wrap;
-  word-break: break-word;
-  max-height: 200px;
-  -webkit-overflow-scrolling: touch;
-  touch-action: manipulation;
-  overscroll-behavior: contain;
-}
+
+    .input-group button {
+      margin-left: 0;
+    }
+
+    #nicknameInput {
+      padding: 10px;
+    }
+
+    #messageInput {
+      font-family: "PT Sans", sans-serif;
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      outline: none;
+      font-size: 1rem;
+      resize: none;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 200px;
+      -webkit-overflow-scrolling: touch;
+      touch-action: manipulation;
+      overscroll-behavior: contain;
+    }
+
     button {
-      font-family: "Sen", sans-serif;
+      font-family: "PT Sans", sans-serif;
       font-size: 1rem;
       background: #3b82f6;
       color: #ffffff;
@@ -153,11 +170,13 @@ padding: 10px;
       cursor: pointer;
       transition: background 0.2s;
     }
+
     button:hover {
       background: #2563eb;
     }
+
     #nicknameInput {
-      font-family: "Sen", sans-serif;
+      font-family: "PT Sans", sans-serif;
       padding: 10px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
@@ -167,121 +186,124 @@ padding: 10px;
     }
 
     .media {
-    margin-right: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
+      margin-right: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
 
-.room-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    .room-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-.room-header select {
-  flex-grow: 1;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #ffffff;
-  border: 1px solid #d1d5db;
-  font-family: "Sen", sans-serif;
-  font-size: 1rem;
-  width: 100%;
-}
+    .room-header select {
+      flex-grow: 1;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #ffffff;
+      border: 1px solid #d1d5db;
+      font-family: "PT Sans", sans-serif;
+      font-size: 1rem;
+      width: 100%;
+    }
 
-.room-header .flag {
-  height: 100%;
-  max-height: 40px;
-  width: auto;
-  object-fit: contain;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-}
+    .room-header .flag {
+      height: 100%;
+      max-height: 40px;
+      width: auto;
+      object-fit: contain;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+    }
 
     @media (max-width: 480px) {
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-    
-  body {
-    padding: 0;
-    justify-content: flex-start;
-    align-items: stretch;
-    height: 100%;
-    margin: 0;
-  }
 
-  .chat-container {
-    padding: 20px;
-    gap: 15px;
-    height: 100%;
-    border-radius: 0%;
-  }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
-  h2 {
-    font-size: 1.2rem;
-  }
+      body {
+        padding: 0;
+        justify-content: flex-start;
+        align-items: stretch;
+        height: 100%;
+        margin: 0;
+      }
 
-  #messages {
-    padding: 10px;
-    height: auto;
-    flex-grow: 1;
-    overflow-y: auto;
-  }
+      .chat-container {
+        padding: 20px;
+        gap: 15px;
+        height: 100%;
+        border-radius: 0%;
+      }
 
-  .message {
-    font-size: 1rem;
-    padding: 8px 12px;
-    border-radius: 6px;
-  }
+      h2 {
+        font-size: 1.2rem;
+      }
 
-  .nickname {
-    font-size: 0.75rem;
-  }
+      #messages {
+        padding: 10px;
+        height: auto;
+        flex-grow: 1;
+        overflow-y: auto;
+      }
 
-  #messageInput,
-  #nicknameInput {
-    font-size: 1rem;
-    padding: 8px;
-    min-width: 0;
-  }
+      .message {
+        font-size: 1rem;
+        padding: 8px 12px;
+        border-radius: 6px;
+      }
 
-  button {
-    padding: 10px 12px;
-    font-size: 1rem;
-  }
+      .nickname {
+        font-size: 0.75rem;
+      }
 
-  .input-group {
-    display: flex;
-    gap: 10px;
-    margin-top: auto;
-  }
+      #messageInput,
+      #nicknameInput {
+        font-size: 1rem;
+        padding: 8px;
+        min-width: 0;
+      }
 
-  .room-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+      button {
+        padding: 10px 12px;
+        font-size: 1rem;
+      }
 
-  .room-header select {
-    font-size: 1rem;
-    padding: 10px;
-    background-color: #ffffff;
-  }
-}
+      .input-group {
+        display: flex;
+        gap: 10px;
+        margin-top: auto;
+      }
+
+      .room-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .room-header select {
+        font-size: 1rem;
+        padding: 10px;
+        background-color: #ffffff;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="chat-container">
-<h2>Uralic chats</h2>
+    <h2>Uralic chats</h2>
     <div class="room-header">
-  <img src="Erzya_Flag.svg" class="flag" />
-  <select id="roomSelect" onchange="location = this.value;">
-    <option value="erzya.html">Ärźań čat</option>
-    <option value="#">Mokšëń čat</option>
-  </select>
-</div>
+      <img src="Erzya_Flag.svg" class="flag" />
+      <select id="roomSelect" onchange="location = this.value;">
+        <option value="erzya.html">Ärźań čat</option>
+        <option value="#">Mokšëń čat</option>
+      </select>
+    </div>
 
     <input id="nicknameInput" type="text" placeholder="Koda lämeť?" />
     <div id="messages"></div>
@@ -292,17 +314,17 @@ html, body {
   </div>
 
   <audio id="sendSound" src="send.mp3" preload="auto"></audio>
-<audio id="receiveSound" src="receive.mp3" preload="auto"></audio>
+  <audio id="receiveSound" src="receive.mp3" preload="auto"></audio>
 
   <script>
     const firebaseConfig = {
-  apiKey: "AIzaSyCpOs1A0F1cZwLDnmIJhEbGQWpC37ldPwg",
-  authDomain: "uralic-chat.firebaseapp.com",
-  projectId: "uralic-chat",
-  storageBucket: "uralic-chat.firebasestorage.app",
-  messagingSenderId: "651022382636",
-  appId: "1:651022382636:web:55a4977844994c9c26c389"
-};
+      apiKey: "AIzaSyCpOs1A0F1cZwLDnmIJhEbGQWpC37ldPwg",
+      authDomain: "uralic-chat.firebaseapp.com",
+      projectId: "uralic-chat",
+      storageBucket: "uralic-chat.firebasestorage.app",
+      messagingSenderId: "651022382636",
+      appId: "1:651022382636:web:55a4977844994c9c26c389"
+    };
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
@@ -326,83 +348,88 @@ html, body {
       const msg = document.getElementById("messageInput").value;
       const nickname = nicknameInput.value.trim() || "Asodaviks";
       if (msg.trim()) {
-        messagesRef.push({ text: msg, userId: userId, nickname: nickname, timestamp: Date.now() });
+        messagesRef.push({
+          text: msg,
+          userId: userId,
+          nickname: nickname,
+          timestamp: Date.now()
+        });
         document.getElementById("messageInput").value = '';
       }
       sendSound.play();
     }
 
-document.getElementById("messageInput").addEventListener("keydown", (e) => {
-  return; // <----- DISABLED: Send on Enter ----->
+    document.getElementById("messageInput").addEventListener("keydown", (e) => {
+      return; // <----- DISABLED: Send on Enter ----->
 
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-});
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
 
     messagesRef.on("child_added", (snapshot) => {
       const data = snapshot.val();
       if (data.userId !== userId) {
-    receiveSound.play();
-  }
+        receiveSound.play();
+      }
       const container = document.createElement("div");
-container.style.position = "relative";
+      container.style.position = "relative";
 
-const div = document.createElement("div");
-div.className = "message";
+      const div = document.createElement("div");
+      div.className = "message";
 
       const nicknameSpan = document.createElement("span");
       nicknameSpan.className = "nickname";
       nicknameSpan.textContent = `${data.nickname} śormadś:`;
 
       const messageText = document.createTextNode(data.text);
-div.appendChild(nicknameSpan);
-div.appendChild(messageText);
+      div.appendChild(nicknameSpan);
+      div.appendChild(messageText);
 
-const timeInfo = document.createElement("div");
-timeInfo.className = "timestamp";
-const date = new Date(data.timestamp || Date.now());
+      const timeInfo = document.createElement("div");
+      timeInfo.className = "timestamp";
+      const date = new Date(data.timestamp || Date.now());
 
-const erzyanMonths = [
-  "jakšamkovoń",
-  "davolkovoń",
-  "ejźurkovoń",
-  "čadïkovoń",
-  "panžikovoń",
-  "aštemkovoń",
-  "mäďkovoń",
-  "umaŕkovoń",
-  "taštamkovoń",
-  "ožokovoń",
-  "sundeŕkovoń",
-  "acamkovoń"
-];
+      const erzyanMonths = [
+        "jakšamkovoń",
+        "davolkovoń",
+        "ejźurkovoń",
+        "čadïkovoń",
+        "panžikovoń",
+        "aštemkovoń",
+        "mäďkovoń",
+        "umaŕkovoń",
+        "taštamkovoń",
+        "ožokovoń",
+        "sundeŕkovoń",
+        "acamkovoń"
+      ];
 
-const year = date.getFullYear();
-const month = erzyanMonths[date.getMonth()];
-const day = date.getDate();
-const hours = String(date.getHours()).padStart(2, '0');
-const minutes = String(date.getMinutes()).padStart(2, '0');
+      const year = date.getFullYear();
+      const month = erzyanMonths[date.getMonth()];
+      const day = date.getDate();
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
 
-timeInfo.textContent = `${year}-ce ijeń ${month} ${day}-ce čistë ${hours}.${minutes}`;
-div.appendChild(timeInfo);
+      timeInfo.textContent = `${year}-ce ijeń ${month} ${day}-ce čistë ${hours}.${minutes}`;
+      div.appendChild(timeInfo);
 
       if (data.userId === userId) {
         const deleteBtn = document.createElement("button");
         deleteBtn.className = "delete-btn";
         deleteBtn.textContent = "🗑️";
         deleteBtn.onclick = () => {
-  if (confirm("Kemestë toń uli meleť nardams te kučovksonť?")) {
-    messagesRef.child(snapshot.key).remove();
-  }
-};
+          if (confirm("Kemestë toń uli meleť nardams te kučovksonť?")) {
+            messagesRef.child(snapshot.key).remove();
+          }
+        };
         div.appendChild(deleteBtn);
       }
 
       container.setAttribute('data-key', snapshot.key);
       container.appendChild(div);
-document.getElementById("messages").appendChild(container);
+      document.getElementById("messages").appendChild(container);
       document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
     });
 
@@ -412,4 +439,5 @@ document.getElementById("messages").appendChild(container);
     });
   </script>
 </body>
+
 </html>
