@@ -16,7 +16,8 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             height: 100%;
             overflow: hidden;
         }
@@ -219,61 +220,65 @@
             border-radius: 3px;
         }
 
-        /* Mobile-specific styles */
         @media (max-width: 480px) {
             body {
                 padding: 10px;
+                align-items: flex-start;
+                padding-top: 10px;
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
             }
-            
+
             .container {
-                height: 100%;
-                max-height: none;
+                height: auto;
+                min-height: calc(100vh - 20px);
                 border-radius: 12px;
             }
-            
+
             .header {
                 padding: 15px;
             }
-            
+
             .header-content h1 {
                 font-size: 18px;
             }
-            
+
             .header-content p {
                 font-size: 13px;
             }
-            
+
             .news-list {
                 padding: 15px;
             }
-            
+
             .news-item {
                 padding: 12px;
             }
-            
+
             .news-text {
                 font-size: 14px;
             }
-            
+
             .news-meta {
                 font-size: 11px;
                 flex-direction: column;
                 gap: 5px;
             }
-            
+
             .modal-content {
                 margin: 10% auto;
                 width: 95%;
             }
-            
+
             .modal-header {
                 padding: 15px;
             }
-            
+
             .modal-body {
                 padding: 15px;
             }
-            
+
             .modal textarea {
                 height: 100px;
             }
@@ -283,11 +288,11 @@
             .container {
                 max-height: 95vh;
             }
-            
+
             .header {
                 padding: 15px;
             }
-            
+
             .news-list {
                 padding: 15px;
             }
@@ -338,7 +343,7 @@
         }
 
         const userId = getUserId();
-        
+
         const firebaseConfig = {
             apiKey: "AIzaSyCtCCV3eJ-z_OrZSUAjOtvNkYfnjXM1Xqk",
             authDomain: "news-myv.firebaseapp.com",
@@ -432,17 +437,20 @@
             }
 
             let newsHTML = '';
-            
+
             const newsArray = Object.entries(newsData)
-                .map(([id, item]) => ({ id, ...item }))
+                .map(([id, item]) => ({
+                    id,
+                    ...item
+                }))
                 .sort((a, b) => b.timestamp - a.timestamp);
-            
+
             newsArray.forEach(item => {
                 const date = new Date(item.timestamp || Date.now());
                 const formattedDate = formatErzyaDate(date);
-                
+
                 const isOwnPost = item.userId === userId;
-                
+
                 newsHTML += `
                     <div class="news-item">
                         <div class="news-text">${item.text}</div>
