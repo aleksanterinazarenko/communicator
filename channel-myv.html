@@ -189,6 +189,18 @@
             color: #333;
         }
 
+        .empty-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            position: absolute;
+            top: 30px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
         .empty-state {
             text-align: center;
             padding: 40px 20px;
@@ -318,147 +330,148 @@
         </div>
 
         <div class="news-list" id="newsList">
-            <div class="empty-state">
-                <p>Sjormadovkst äzjt mujeve. Lepštik + poladomga vasencent!</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="newsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Od sjormadovks</h2>
-            </div>
-            <div class="modal-body">
-                <textarea id="newsText" placeholder="Jovtak mäzdejak..."></textarea>
-                <div class="modal-actions">
-                    <button class="modal-btn cancel-btn" id="cancelBtn">Mäkev</button>
-                    <button class="modal-btn publish-btn" id="publishBtn">Poladoma</button>
+            <div class="empty-container">
+                <div class="empty-state">
+                    <p>Sjormadovkst äzjt mujeve. Lepštik + poladomga vasencent!</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        function getUserId() {
-            let userId = localStorage.getItem('newsChannelUserId');
-            if (!userId) {
-                userId = 'user_' + Math.random().toString(36).substr(2, 9);
-                localStorage.setItem('newsChannelUserId', userId);
+        <div class="modal" id="newsModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Od sjormadovks</h2>
+                </div>
+                <div class="modal-body">
+                    <textarea id="newsText" placeholder="Jovtak mäzdejak..."></textarea>
+                    <div class="modal-actions">
+                        <button class="modal-btn cancel-btn" id="cancelBtn">Mäkev</button>
+                        <button class="modal-btn publish-btn" id="publishBtn">Poladoma</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function getUserId() {
+                let userId = localStorage.getItem('newsChannelUserId');
+                if (!userId) {
+                    userId = 'user_' + Math.random().toString(36).substr(2, 9);
+                    localStorage.setItem('newsChannelUserId', userId);
+                }
+                return userId;
             }
-            return userId;
-        }
 
-        const userId = getUserId();
+            const userId = getUserId();
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCtCCV3eJ-z_OrZSUAjOtvNkYfnjXM1Xqk",
-            authDomain: "news-myv.firebaseapp.com",
-            databaseURL: "https://news-myv-default-rtdb.firebaseio.com",
-            projectId: "news-myv",
-            storageBucket: "news-myv.firebasestorage.app",
-            messagingSenderId: "352697888625",
-            appId: "1:352697888625:web:2806f2070c9cb0a85e90d0"
-        };
+            const firebaseConfig = {
+                apiKey: "AIzaSyCtCCV3eJ-z_OrZSUAjOtvNkYfnjXM1Xqk",
+                authDomain: "news-myv.firebaseapp.com",
+                databaseURL: "https://news-myv-default-rtdb.firebaseio.com",
+                projectId: "news-myv",
+                storageBucket: "news-myv.firebasestorage.app",
+                messagingSenderId: "352697888625",
+                appId: "1:352697888625:web:2806f2070c9cb0a85e90d0"
+            };
 
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+            firebase.initializeApp(firebaseConfig);
+            const database = firebase.database();
 
-        const addBtn = document.getElementById('addBtn');
-        const newsModal = document.getElementById('newsModal');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const publishBtn = document.getElementById('publishBtn');
-        const newsText = document.getElementById('newsText');
-        const newsList = document.getElementById('newsList');
+            const addBtn = document.getElementById('addBtn');
+            const newsModal = document.getElementById('newsModal');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const publishBtn = document.getElementById('publishBtn');
+            const newsText = document.getElementById('newsText');
+            const newsList = document.getElementById('newsList');
 
-        const erzyanMonths = [
-            "jakšamkovonj",
-            "davolkovonj",
-            "ejźurkovonj",
-            "čadïkovonj",
-            "panžikovonj",
-            "aštemkovonj",
-            "mädkovonj",
-            "umarjkovonj",
-            "taštamkovonj",
-            "ožokovonj",
-            "sunderkovonj",
-            "acamkovonj"
-        ];
+            const erzyanMonths = [
+                "jakšamkovonj",
+                "davolkovonj",
+                "ejźurkovonj",
+                "čadïkovonj",
+                "panžikovonj",
+                "aštemkovonj",
+                "mädkovonj",
+                "umarjkovonj",
+                "taštamkovonj",
+                "ožokovonj",
+                "sunderkovonj",
+                "acamkovonj"
+            ];
 
-        function formatErzyaDate(date) {
-            const year = date.getFullYear();
-            const month = erzyanMonths[date.getMonth()];
-            const day = date.getDate();
-            const hours = String(date.getHours()).padStart(2, '0');
-            const minutes = String(date.getMinutes()).padStart(2, '0');
+            function formatErzyaDate(date) {
+                const year = date.getFullYear();
+                const month = erzyanMonths[date.getMonth()];
+                const day = date.getDate();
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
 
-            return `${year}-ce ijen ${month} ${day}-ce čistë ${hours}.${minutes}`;
-        }
+                return `${year}-ce ijen ${month} ${day}-ce čistë ${hours}.${minutes}`;
+            }
 
-        addBtn.addEventListener('click', function () {
-            newsModal.style.display = 'block';
-            newsText.focus();
-        });
+            addBtn.addEventListener('click', function () {
+                newsModal.style.display = 'block';
+                newsText.focus();
+            });
 
-        cancelBtn.addEventListener('click', function () {
-            newsModal.style.display = 'none';
-            newsText.value = '';
-        });
-
-        publishBtn.addEventListener('click', function () {
-            const text = newsText.value.trim();
-            if (text) {
-                const newsItem = {
-                    text: `📢 ${text}`,
-                    timestamp: Date.now(),
-                    userId: userId
-                };
-
-                database.ref('news').push(newsItem);
+            cancelBtn.addEventListener('click', function () {
                 newsModal.style.display = 'none';
                 newsText.value = '';
-            }
-        });
+            });
 
-        window.addEventListener('click', function (event) {
-            if (event.target === newsModal) {
-                newsModal.style.display = 'none';
-                newsText.value = '';
-            }
-        });
+            publishBtn.addEventListener('click', function () {
+                const text = newsText.value.trim();
+                if (text) {
+                    const newsItem = {
+                        text: `📢 ${text}`,
+                        timestamp: Date.now(),
+                        userId: userId
+                    };
 
-        newsText.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && e.key === 'Enter') {
-                publishBtn.click();
-            }
-        });
+                    database.ref('news').push(newsItem);
+                    newsModal.style.display = 'none';
+                    newsText.value = '';
+                }
+            });
 
-        database.ref('news').on('value', function (snapshot) {
-            const newsData = snapshot.val();
+            window.addEventListener('click', function (event) {
+                if (event.target === newsModal) {
+                    newsModal.style.display = 'none';
+                    newsText.value = '';
+                }
+            });
 
-            if (!newsData) {
-                newsList.innerHTML =
-                    '<div class="empty-state"><p>Sjormadovkst äzjt mujeve. Lepštik + poladomga vasencent!</p></div>';
-                return;
-            }
+            newsText.addEventListener('keydown', function (e) {
+                if (e.ctrlKey && e.key === 'Enter') {
+                    publishBtn.click();
+                }
+            });
 
-            let newsHTML = '';
+            database.ref('news').on('value', function (snapshot) {
+                const newsData = snapshot.val();
 
-            const newsArray = Object.entries(newsData)
-                .map(([id, item]) => ({
-                    id,
-                    ...item
-                }))
-                .sort((a, b) => b.timestamp - a.timestamp);
+                if (!newsData) {
+                    newsList.innerHTML =
+                        '<div class="empty-state"><p>Sjormadovkst äzjt mujeve. Lepštik + poladomga vasencent!</p></div>';
+                    return;
+                }
 
-            newsArray.forEach(item => {
-                const date = new Date(item.timestamp || Date.now());
-                const formattedDate = formatErzyaDate(date);
+                let newsHTML = '';
 
-                const isOwnPost = item.userId === userId;
+                const newsArray = Object.entries(newsData)
+                    .map(([id, item]) => ({
+                        id,
+                        ...item
+                    }))
+                    .sort((a, b) => b.timestamp - a.timestamp);
 
-                newsHTML += `
+                newsArray.forEach(item => {
+                    const date = new Date(item.timestamp || Date.now());
+                    const formattedDate = formatErzyaDate(date);
+
+                    const isOwnPost = item.userId === userId;
+
+                    newsHTML += `
                     <div class="news-item">
                         <div class="news-text">${item.text}</div>
                         <div class="news-meta">
@@ -467,16 +480,16 @@
                         </div>
                     </div>
                 `;
+                });
+                newsList.innerHTML = newsHTML;
             });
-            newsList.innerHTML = newsHTML;
-        });
 
-        function deleteNews(id) {
-            if (confirm('Kemestë nardasïnek?')) {
-                database.ref('news').child(id).remove();
+            function deleteNews(id) {
+                if (confirm('Kemestë nardasïnek?')) {
+                    database.ref('news').child(id).remove();
+                }
             }
-        }
-    </script>
+        </script>
 </body>
 
 </html>
