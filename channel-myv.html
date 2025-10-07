@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ärzjanj kanalosj</title>
+    <title>Ärźań kanaloś</title>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <style>
@@ -203,6 +203,7 @@
 
         .empty-state {
             text-align: center;
+            font-size: 15px;
             padding: 40px 20px;
             color: #666;
         }
@@ -323,8 +324,8 @@
     <div class="container">
         <div class="header">
             <div class="header-content">
-                <h1>📢 Ärzjanj kanalosj</h1>
-                <p>Jovtïk, mäze odosj!</p>
+                <h1>📢 Ärźań kanaloś</h1>
+                <p>Jovtïk, mäze odoś!</p>
             </div>
             <button class="add-btn" id="addBtn">+</button>
         </div>
@@ -332,7 +333,7 @@
         <div class="news-list" id="newsList">
             <div class="empty-container">
                 <div class="empty-state">
-                    <p>Sjormadovkst äzjt mujeve. Lepštik + poladomga vasencent!</p>
+                    <p>Śormadovkst äźt mujeve. Lepštik + poladomga vasencent!</p>
                 </div>
             </div>
         </div>
@@ -340,7 +341,7 @@
         <div class="modal" id="newsModal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>Od sjormadovks</h2>
+                    <h2>Od śormadovks</h2>
                 </div>
                 <div class="modal-body">
                     <textarea id="newsText" placeholder="Jovtak mäzdejak..."></textarea>
@@ -385,18 +386,18 @@
             const newsList = document.getElementById('newsList');
 
             const erzyanMonths = [
-                "jakšamkovonj",
-                "davolkovonj",
-                "ejźurkovonj",
-                "čadïkovonj",
-                "panžikovonj",
-                "aštemkovonj",
-                "mädkovonj",
-                "umarjkovonj",
-                "taštamkovonj",
-                "ožokovonj",
-                "sunderkovonj",
-                "acamkovonj"
+                "jakšamkovoń",
+                "davolkovoń",
+                "eiźurkovoń",
+                "čadïkovoń",
+                "panžikovoń",
+                "aštemkovoń",
+                "mädkovoń",
+                "umaŕkovoń",
+                "taštamkovoń",
+                "ožokovoń",
+                "sunderkovoń",
+                "acamkovoń"
             ];
 
             function formatErzyaDate(date) {
@@ -452,7 +453,7 @@
 
                 if (!newsData) {
                     newsList.innerHTML =
-                        '<div class="empty-state"><p>Sjormadovkst äzjt mujeve. Lepštik + poladomga vasencent!</p></div>';
+                        '<div class="empty-state"><p>Śormadovkst äźt mujeve. Lepštik + poladomga vasencent!</p></div>';
                     return;
                 }
 
@@ -476,7 +477,7 @@
                         <div class="news-text">${item.text}</div>
                         <div class="news-meta">
                             <span>${formattedDate}</span>
-                            <span class="delete-btn ${isOwnPost ? '' : 'hidden'}" onclick="deleteNews('${item.id}')">Nardïk kuljanjt</span>
+                            <span class="delete-btn ${isOwnPost ? '' : 'hidden'}" onclick="deleteNews('${item.id}')">Nardïk kuľańt</span>
                         </div>
                     </div>
                 `;

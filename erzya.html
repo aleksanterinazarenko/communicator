@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ärzjanj čat</title>
+  <title>Ärźań čat</title>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -299,7 +299,7 @@
     <div class="room-header">
       <img src="Erzya_Flag.svg" class="flag" />
       <select id="roomSelect" onchange="location = this.value;">
-        <option value="erzya.html">Ärzjanj čat</option>
+        <option value="erzya.html">Ärźań čat</option>
         <option value="#">Мокшень чатсь</option>
       </select>
     </div>
@@ -307,7 +307,7 @@
     <input id="nicknameInput" type="text" placeholder="Koda lämet?" />
     <div id="messages"></div>
     <div class="input-group">
-      <textarea id="messageInput" placeholder="Sjormadt tago-mäze..."></textarea>
+      <textarea id="messageInput" placeholder="Śormadt tago-mäze..."></textarea>
       <button onclick="sendMessage()">Kučoma</button>
     </div>
   </div>
@@ -380,7 +380,7 @@
 
       const nicknameSpan = document.createElement("span");
       nicknameSpan.className = "nickname";
-      nicknameSpan.textContent = `${data.nickname} sjormadsj:`;
+      nicknameSpan.textContent = `${data.nickname} śormadś:`;
 
       const messageText = document.createTextNode(data.text);
       div.appendChild(nicknameSpan);
@@ -391,18 +391,18 @@
       const date = new Date(data.timestamp || Date.now());
 
       const erzyanMonths = [
-        "jakšamkovonj",
-        "davolkovonj",
-        "ejźurkovonj",
-        "čadïkovonj",
-        "panžikovonj",
-        "aštemkovonj",
-        "mädkovonj",
-        "umarjkovonj",
-        "taštamkovonj",
-        "ožokovonj",
-        "sunderkovonj",
-        "acamkovonj"
+        "jakšamkovoń",
+        "davolkovoń",
+        "eiźurkovoń",
+        "čadïkovoń",
+        "panžikovoń",
+        "aštemkovoń",
+        "mädkovoń",
+        "umaŕkovoń",
+        "taštamkovoń",
+        "ožokovoń",
+        "sunderkovoń",
+        "acamkovoń"
       ];
 
       const year = date.getFullYear();
@@ -419,7 +419,7 @@
         deleteBtn.className = "delete-btn";
         deleteBtn.textContent = "🗑️";
         deleteBtn.onclick = () => {
-          if (confirm("Kemestë tonj uli melet nardams te kučovksontj?")) {
+          if (confirm("Kemestë toń uli melet nardams te kučovksońt?")) {
             messagesRef.child(snapshot.key).remove();
           }
         };
