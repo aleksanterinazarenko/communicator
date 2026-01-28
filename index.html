@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Communicator</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -31,6 +31,11 @@
       --transition: all 0.3s ease;
     }
 
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
+
     body {
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -40,15 +45,22 @@
       min-height: 100vh;
       padding: 0;
       color: var(--dark-color);
+      margin: 0;
+      overflow: hidden;
     }
 
     .chat-container {
       background: #ffffff;
-      width: 100%;
+      width: 100vw;
       height: 100vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
 
     .chat-header {
@@ -280,6 +292,7 @@
       display: flex;
       gap: 10px;
       flex-shrink: 0;
+      align-items: flex-end;
     }
 
     #messageInput {
@@ -296,6 +309,7 @@
       max-height: 100px;
       overflow-y: auto;
       line-height: 1.4;
+      box-sizing: border-box;
     }
 
     #messageInput:focus {
@@ -385,6 +399,7 @@
         height: 85vh;
         border-radius: var(--border-radius);
         box-shadow: var(--box-shadow);
+        position: relative;
       }
 
       .chat-header {
@@ -432,6 +447,23 @@
 
       .info-panel {
         padding: 12px 25px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        min-height: 100%;
+        padding: 0;
+      }
+      
+      .chat-container {
+        height: 100%;
+        border-radius: 0;
+        max-width: none;
+      }
+      
+      textarea, input {
+        font-size: 16px !important;
       }
     }
 
