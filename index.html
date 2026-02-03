@@ -720,7 +720,7 @@
 
             if (isSent) {
                 if (readCount === 1) return `Sent ${timeText.toLowerCase()}`;
-                if (readCount === 2) return `Read by 1 • ${timeText}`;
+                if (readCount === 2) return `Read ${timeText}`;
                 return `Read by ${readCount - 1} • ${timeText}`;
             }
             return timeText;
