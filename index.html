@@ -169,13 +169,13 @@
         .message.sent .message-content {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
-            border-bottom-right-radius: 0;
+            border-bottom-right-radius: 8px;
         }
 
         .message.received .message-content {
             background-color: white;
             color: var(--dark-color);
-            border-bottom-left-radius: 0;
+            border-bottom-left-radius: 8px;
             border: 1px solid var(--gray-light);
         }
 
@@ -240,7 +240,7 @@
             cursor: pointer;
             font-size: 0.8rem;
             padding: 4px 8px;
-            border-radius: 6px;
+            border-radius: 15px;
             transition: var(--transition);
             display: flex;
             align-items: center;
@@ -390,10 +390,6 @@
             display: flex;
             align-items: flex-end;
             gap: 8px;
-        }
-
-        .message.sent {
-            flex-direction: row-reverse;
         }
 
         .avatar-dot {
