@@ -232,6 +232,7 @@
         .message-actions {
             display: flex;
             flex-shrink: 0;
+            gap: 8px;
         }
 
         .message-action-btn {
@@ -827,18 +828,22 @@
     <div class="message-text">${formatMessageText(data.text)}</div>
 
     <div class="message-footer">
-      <div class="message-actions">
+        <div class="message-actions">
         ${isSent ? `
-          <button class="message-action-btn" onclick="deleteMessage('${key}')">
+            <button class="message-action-btn" onclick="deleteMessage('${key}')">
             <i class="fas fa-trash"></i> Delete
-          </button>
+            </button>
         ` : `
-          <button class="message-action-btn" onclick="toggleReadStatus('${key}')">
+            <button class="message-action-btn" onclick="toggleReadStatus('${key}')">
             <i class="fas ${isReadByMe ? 'fa-check-double' : 'fa-check'}"></i>
             ${isReadByMe ? 'Mark as unread' : 'Mark as read'}
-          </button>
+            </button>
         `}
-      </div>
+
+        <button class="message-action-btn" onclick="copyMessage('${key}')">
+            <i class="fas fa-copy"></i> Copy
+        </button>
+        </div>
 
       <div class="timestamp-container">
         ${isSent && statusIcon ? `<i class="fas ${statusIcon}"></i>` : ''}  <!-- Add only for sent messages -->
@@ -967,6 +972,24 @@
                 messageCountElement.textContent = `${count} ${count === 1 ? 'message' : 'messages'}`;
             }
         });
+
+        function copyMessage(key) {
+            messagesRef.child(key).once('value').then(snapshot => {
+                const data = snapshot.val();
+                if (!data || !data.text) return;
+
+                navigator.clipboard.writeText(data.text).then(() => {
+                    const btn = document.querySelector(`[data-key="${key}"] .fa-copy`);
+                    if (btn) {
+                        const original = btn.parentElement.innerHTML;
+                        btn.parentElement.innerHTML = '<i class="fas fa-check"></i> Copied';
+                        setTimeout(() => {
+                            btn.parentElement.innerHTML = original;
+                        }, 1200);
+                    }
+                });
+            });
+        }
     </script>
 </body>
 
